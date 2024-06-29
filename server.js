@@ -1,33 +1,27 @@
 const { ApolloServer, gql } = require('apollo-server');
-const { exec } = require('child_process');
+const fs = require('fs');
+const path = require('path');
 
-const typeDefs = gql`
-  type Query {
-    runScript(arg: String!): String
-  }
-`;
+const typeDefs = gql(fs.readFileSync(path.join(__dirname, 'schema.graphql'), 'utf8'));
 
 const resolvers = {
   Query: {
-    runScript: (_, { arg }) => {
-      return new Promise((resolve, reject) => {
-        exec(`python3 script.py ${arg}`, (error, stdout, stderr) => {
-          if (error) {
-            reject(`Error: ${error.message}`);
-          } else if (stderr) {
-            reject(`Error: ${stderr}`);
-          } else {
-            resolve(stdout.trim());
-          }
-        });
-      });
-    },
-  },
+    telemetry: async (_, { subsystem, paramName }) => {
+      const dummyData = [
+        {
+          timestamp: new Date().toISOString(),
+          paramName: paramName || 'dummy_param',
+          value: Math.random() * 100
+        }
+      ];
+      return dummyData;
+    }
+  }
 };
+
 
 const server = new ApolloServer({ typeDefs, resolvers });
 
-
 server.listen().then(({ url }) => {
-  console.log(`Server ready at ${url}`);
+  console.log(`ready at ${url}`);
 });

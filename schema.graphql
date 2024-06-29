@@ -1,0 +1,137 @@
+#Influx DB Schema data from beacon parser
+
+type Query {
+  telemetry(subsystem: String!, paramName: String): [Telemetry]
+}
+
+type Telemetry {
+  timestamp: String
+  paramName: String
+  value: Float
+}
+
+type CDHTelemetry {
+  fs_mounted: Boolean
+  ram_image: Boolean
+  temp_mcu: Float
+  temp_ram: Float
+  i_GSSB1: Float
+  i_GSSB2: Float
+  i_Flash: Float
+  i_PWM: Float
+  resetcause: Float
+  bootcause: Float
+  bootcount: Float
+  clock: Float
+  uptime: Float
+}
+
+type COMTelemetery {
+  timestamp: String
+  pckt_vsn: Float
+  reset_reason: Float
+  bootCnt: Float
+  RTSM_status: Float
+  HAL_status: Float
+  init_status: Float
+  ota_UpdateCnt: Float
+  fw_version: Float
+  uptime: Float
+  antdploystate: Float
+  preISISstatus: Float
+  cpu_usage: Float
+  ptc_timer: Float
+  bcn_ptv_count: Float
+  grd_ptv_count: Float
+  uplinkTP: Float
+  downlinkTP: Float
+  uplinkP: Float
+  downlinkP: Float
+  uplinkDB: Float
+  downlinkDB: Float
+  uplinkTB: Float
+  downlinkTB: Float
+  cc1125_ff: Float
+  decodepacfail: Float
+  dcryptpakfail: Float
+  INA233_status: Float
+  CC_UHF_status: Float
+  CC_VHF_status: Float
+  TMP_LNA_stat: Float
+  ADREG_A_stat: Float
+  ADREG_B_stat: Float
+  ADREG_C_stat: Float
+  INA_Tx_volt: Float
+  INA_Tx_cur: Float
+  INA_Rx_volt: Float
+  INA_Rx_cur: Float
+  INA_DP_volt: Float
+  av5v0DPcur: Float
+  pk5v0DPcur: Float
+  INA_LN_volt: Float
+  INA_LN_cur: Float
+  TMP_ltemp: Float
+  TMP_rtemp: Float
+  STMADCTtem: Float
+  STMADCtem: Float
+  CC_UHtemp: Float
+  CC_VHtemp: Float
+  CC_VHRSSI: Float
+  ADI_temp: Float
+  ADP_d_voltage: Float
+  ADP_g_voltage: Float
+  avPAcurrent: Float
+  pkPAcurrent: Float
+  ADP_DCtem: Float
+  ADP_ICtem: Float
+  ADP_TTemp: Float
+  ADP_STemp: Float
+}
+
+type EPSTelemetry {
+  timestamp: String
+  uptimeInS: Float
+  bootCount: Float
+  wdt_gstimleft: Float
+  wdt_gs_ctr: Float
+  mpptConvVolt: [Float]
+  curSolarPanel: [Float]
+  vBatt: Float
+  curSolar: Float
+  curBattIn: Float
+  curBattOut: Float
+  curOutput: [Float]
+  AOcurOutput: [Float]
+  OutConvVolt: [Float]
+  outConvState: Float
+  outputStatus: Float
+  outFltStatus: Float
+  protectedOut: Float
+  outputOnDelta: [Float]
+  outOffDelta: [Float]
+  outputFltCnt: [Float]
+  temp: [Float]
+  battMode: Float
+  mpptMode: Float
+  batHeatrMode: Float
+  batHeatrState: Float
+  PingWdttoggle: Float
+  PngWdtturnOff: Float
+  thermProtTemp: [Float]
+}
+
+type FSMTelemetry {
+  enabled: Boolean
+  curr_state: Float
+  prev_state: Float
+  gs_cxn_ts: Float
+  log_verbose: Boolean
+  dploy_inhibit: Boolean
+  sci_pld_intv: Float
+  sci_pld_tout: Float
+  bcn_col_intv: Float
+}
+
+schema {
+  query: Query
+}
